@@ -40,9 +40,9 @@ class PageModel extends Model
     }
 }
 ```
+### Changelog
 
-
-Markdown | Less | Pretty
+Time | Archive | Note
 --- | --- | ---
-*Still* | `renders` | **nicely**
-1 | 2 | 3
+`Mar 1/2017` | Start project | **nicely**
+`Mar 7/2017` | Improve models | Move save() method to library parent model
