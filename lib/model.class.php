@@ -57,7 +57,7 @@ class Model
     public function save($data, $id)
     {
         $update = "UPDATE ".$this->table." SET ";
-        foreach ($data as $field => value) {
+        foreach ($data as $field => $value) {
         {
             $update .= $field . " = '{value}','";
         }
