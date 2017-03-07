@@ -4,6 +4,7 @@ _A beautiful PHP Framework_
 - Easy to reuse code - libraries
 - Isolating the Layout
 - Front Controller
+
 ###Controller
 ```php
 # controllers/page.controller.php
