@@ -63,9 +63,9 @@ class PageController extends Controller
         if ($_POST) {
             $result = $this->model->save($_POST);
             if ($result) {
-                Session::setFlash('Success');
+                Session::setMessage('success', 'Success');
             } else {
-                Session::setFlash('Fail');
+                Session::setMessage('error', 'Fail');
             }
             Router::redirect(getAdminUrl('page'));
         } else {
@@ -78,9 +78,9 @@ class PageController extends Controller
         if (isset($this->params[0])) {
             $result = $this->model->delete($this->params[0]);
             if ($result) {
-                Session::setFlash('Success');
+                Session::setMessage('success', 'Success');
             } else {
-                Session::setFlash('Fail');
+                Session::setMessage('error', 'Fail');
             }
         }
         Router::redirect(getAdminUrl('page'));

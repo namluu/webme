@@ -56,11 +56,28 @@ class Model
 
     public function save($data, $id)
     {
-        $update = "UPDATE ".$this->table." SET ";
-        foreach ($data as $field => $value) {
-        {
-            $update .= $field . " = '{value}','";
+        if (!$id) {
+            $fields = '';
+            $values = '';
+            foreach ($data as $field => $value) {
+                $fields .= "$field,";
+                $values .= (is_numeric($value) && (intval($value) == $value)) ? $value . ',' : "'$value',";
+            }
+            // remove our trailing
+            $fields = substr($fields, 0, -1);
+            // remove our trailing
+            $values = substr($values, 0, -1);
+            $insert = "INSERT INTO {$this->table} ({$fields}) VALUES ({$values})";
+            return $this->db->query($insert);
+        } else {
+            $update = "UPDATE {$this->table} SET ";
+            foreach ($data as $field => $value) {
+                $update .= $field . " = '{$value}',";
+            }
+            // remove our trailing ,
+            $update = substr($update, 0, -1);
+            $update .= " WHERE id = " . $id;
+            return $this->db->query($update);
         }
-    }
     }
 }

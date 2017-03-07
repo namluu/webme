@@ -22,6 +22,7 @@ class ContactController extends Controller
 
     public function admin_index()
     {
-        $this->data['content'] = $this->model->getList();
+        $content = $this->model->getList();
+        View::renderView($content);
     }
 }

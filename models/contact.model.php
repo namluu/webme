@@ -14,22 +14,12 @@ class ContactModel extends Model
             return false;
         }
         $id = (int)$id;
-        $email = $this->db->escape($data['email']);
-        $name = $this->db->escape($data['name']);
-        $message = $this->db->escape($data['message']);
+        $escapeData = [
+            'email' => $this->db->escape($data['email']),
+            'name' => $this->db->escape($data['name']),
+            'message' => $this->db->escape($data['message'])
+        ];
 
-        if (!$id) {
-            $sql = "INSERT INTO contact_message
-                    SET name = '{$name}',
-                        email = '{$email}',
-                        message = '{$message}'";
-        } else {
-            $sql = "UPDATE contact_message
-                    SET name = '{$name}',
-                        email = '{$email}',
-                        message = '{$message}'
-                    WHERE id = {$id}";
-        }
-        return $this->db->query($sql);
+        return parent::save($escapeData, $id);
     }
 }
