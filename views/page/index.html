@@ -1,0 +1,7 @@
+<p><?php echo __('greeting') ?></p>
+this is page index
+<ul>
+    <?php foreach ($data as $page): ?>
+        <?php getMenu('page/view/'. $page['alias'], 'page', $page['title'])?>
+    <?php endforeach; ?>
+</ul>

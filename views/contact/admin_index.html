@@ -1,0 +1,22 @@
+<p><?php echo __('Manage contact') ?></p>
+<table class="table table-striped" style="width: 500px">
+    <tr>
+        <th>Email</th>
+        <th>Name</th>
+        <th>Message</th>
+        <th></th>
+    </tr>
+    <?php foreach ($data['content'] as $contact): ?>
+    <tr>
+        <td><?php echo $contact['email'] ?></td>
+        <td><?php echo $contact['name'] ?></td>
+        <td><?php echo $contact['message'] ?></td>
+        <td>
+            <a href="<?php echo getAdminUrl('contact/edit/' . $contact['id']) ?>">Edit</a>&nbsp;|&nbsp;
+            <a href="<?php echo getAdminUrl('contact/delete/' . $contact['id']) ?>"
+               onclick="return confirmDelete();">Remove</a>
+        </td>
+    </tr>
+    <?php endforeach; ?>
+</table>
+<p><a href="<?php echo getAdminUrl('contact/add') ?>">New contact</a></p>
