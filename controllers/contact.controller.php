@@ -19,10 +19,4 @@ class ContactController extends Controller
             View::renderView();
         }
     }
-
-    public function admin_index()
-    {
-        $content = $this->model->getList();
-        View::renderView($content);
-    }
 }

@@ -15,6 +15,8 @@ class Router
 
     protected $language;
 
+    protected $isAdmin;
+
     public function __construct($uri)
     {
         $this->uri = urldecode(trim($uri, '/'));
@@ -25,6 +27,7 @@ class Router
         $this->language = Config::get('default_language');
         $this->controller = Config::get('default_controller');
         $this->action = Config::get('default_action');
+        $this->isAdmin = false;
 
         $uriParts = explode('?', $this->uri);
         // Get path like controller/action/param1/param2
@@ -36,7 +39,11 @@ class Router
             // admin
             if (in_array(strtolower(current($pathParts)), array_keys($routes))) {
                 $this->route = strtolower(current($pathParts));
-                $this->methodPrefix = isset($routes[$this->route]) ? $routes[$this->route] : '';
+                if ($this->route == Config::get('route_admin')) {
+                    $this->isAdmin = true;
+                    $this->controller .= 'Admin';
+                }
+                //$this->methodPrefix = isset($routes[$this->route]) ? $routes[$this->route] : '';
                 array_shift($pathParts);
             } elseif (in_array(strtolower(current($pathParts)), Config::get('languages'))) {
                 $this->language = strtolower(current($pathParts));
@@ -46,7 +53,12 @@ class Router
 
         // Get controller - seoond element
         if (current($pathParts)) {
-            $this->controller = strtolower(current($pathParts));
+            if ($this->isAdmin) {
+                $this->controller = strtolower(current($pathParts)).'Admin';
+            } else {
+                $this->controller = strtolower(current($pathParts));
+            }
+
             array_shift($pathParts);
         }
 
@@ -118,5 +130,21 @@ class Router
     public static function redirect($location)
     {
         header('Location: '.$location);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        return $this->isAdmin;
+    }
+
+    /**
+     * @param bool $isAdmin
+     */
+    public function setIsAdmin($isAdmin)
+    {
+        $this->isAdmin = $isAdmin;
     }
 }

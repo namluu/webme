@@ -4,12 +4,16 @@ require_once (ROOT.DS.'config'.DS.'config.php');
 function __autoload($class) {
     $libPath = ROOT.DS.'lib'.DS.strtolower($class).'.class.php';
     $controllerPath = ROOT.DS.'controllers'.DS.str_replace('controller', '', strtolower($class)).'.controller.php';
+    $controllerAdmin = ROOT.DS.'controllers'.DS.'admin'.DS.str_replace('admin', '',
+            str_replace('controller', '', strtolower($class))).'.admin.controller.php';
     $modelPath = ROOT.DS.'models'.DS.str_replace('model', '', strtolower($class)).'.model.php';
 
     if (file_exists($libPath)) {
         require_once ($libPath);
     } elseif (file_exists($controllerPath)) {
-        require_once ($controllerPath);
+        require_once($controllerPath);
+    } elseif (file_exists($controllerAdmin)) {
+        require_once($controllerAdmin);
     } elseif (file_exists($modelPath)) {
         require_once($modelPath);
     } else {

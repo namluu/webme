@@ -44,7 +44,12 @@ class View
         if (!$router) {
             return false;
         }
-        $controllerDir = str_replace('Controller', '', $router->getController());
+
+        if ($router->isAdmin()) {
+            $controllerDir = str_replace('Admin',DS.'admin', str_replace('Controller', '', $router->getController()));
+        } else {
+            $controllerDir = str_replace('Controller', '', $router->getController());
+        }
         $templateName = $router->getMethodPrefix().$router->getAction().'.html';
 
         if ($path) {
@@ -55,7 +60,7 @@ class View
 
         if ($layout) {
             $layout = VIEW_PATH.DS.$layout.'.html';
-        } elseif ($router->getRoute() == Config::get('route_admin')) {
+        } elseif ($router->isAdmin()) {
             $layout = VIEW_PATH.DS.'admin.html';
         } else {
             $layout = VIEW_PATH.DS.$router->getRoute().'.html';

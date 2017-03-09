@@ -39,9 +39,9 @@ class Controller
         $this->params = $router->getParams();
 
         $controllerMethod = strtolower($router->getMethodPrefix().$router->getAction());
-        if ($router->getRoute() == Config::get('route_admin')) {
+        if ($router->isAdmin()) {
             if (Session::get('role') != 'admin') {
-                if ($controllerMethod != 'admin_login') {
+                if ($controllerMethod != 'login') {
                     Router::redirect(getAdminUrl('user/login'));
                 }
             }

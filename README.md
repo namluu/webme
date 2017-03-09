@@ -47,3 +47,4 @@ Time | Archive | Note
 --- | --- | ---
 `Mar 1/2017` | Start project | **nicely**
 `Mar 7/2017` | Improve models | Move save() method to library parent model
+`Mar 9/2017` | Improve MVC | Separate controllers Frontend & Backend 

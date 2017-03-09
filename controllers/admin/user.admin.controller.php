@@ -1,6 +1,6 @@
 <?php
 
-class UserController extends Controller
+class UserAdminController extends Controller
 {
     public function __construct(array $data = array())
     {
@@ -8,7 +8,7 @@ class UserController extends Controller
         $this->model = new UserModel();
     }
 
-    public function admin_login()
+    public function login()
     {
         if ($_POST && isset($_POST['username']) && isset($_POST['password'])) {
             $user = $this->model->getBy('username', $_POST['username']);
@@ -22,7 +22,7 @@ class UserController extends Controller
         View::renderView('', 'login');
     }
 
-    public function admin_logout()
+    public function logout()
     {
         Session::destroy();
         Router::redirect(getAdminUrl());

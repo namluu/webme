@@ -42,7 +42,7 @@ class App
         if (method_exists($controllerObject, $controllerMethod)) {
             $controllerObject->$controllerMethod();
         } else {
-            throw new Exception('Method '.$controllerMethod.' does not exist');
+            throw new Exception('Method "'.$controllerClass.'->'.$controllerMethod.'" does not exist');
         }
 
         // the layout render will be move to View and Controller Action
