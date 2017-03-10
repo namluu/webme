@@ -24,7 +24,7 @@ class View
             return false;
         }
         $controllerDir = str_replace('Controller', '', $router->getController());
-        $templateName = $router->getMethodPrefix().$router->getAction().'.html';
+        $templateName = $router->getMethodPrefix().$router->getAction().'.phtml';
 
         return VIEW_PATH.DS.$controllerDir.DS.$templateName;
     }
@@ -50,20 +50,20 @@ class View
         } else {
             $controllerDir = str_replace('Controller', '', $router->getController());
         }
-        $templateName = $router->getMethodPrefix().$router->getAction().'.html';
+        $templateName = $router->getMethodPrefix().$router->getAction().'.phtml';
 
         if ($path) {
-            $path = VIEW_PATH.DS.$controllerDir.DS.$path.'.html';
+            $path = VIEW_PATH.DS.$controllerDir.DS.$path.'.phtml';
         } else {
             $path = VIEW_PATH.DS.$controllerDir.DS.$templateName;
         }
 
         if ($layout) {
-            $layout = VIEW_PATH.DS.$layout.'.html';
+            $layout = VIEW_PATH.DS.$layout.'.phtml';
         } elseif ($router->isAdmin()) {
-            $layout = VIEW_PATH.DS.'admin.html';
+            $layout = VIEW_PATH.DS.'admin.phtml';
         } else {
-            $layout = VIEW_PATH.DS.$router->getRoute().'.html';
+            $layout = VIEW_PATH.DS.$router->getRoute().'.phtml';
         }
 
         ob_start();
