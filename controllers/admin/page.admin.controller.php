@@ -17,15 +17,20 @@ class PageAdminController extends Controller
     {
         if ($_POST) {
             $id = isset($_POST['id']) ? (int)$_POST['id'] : null;
-            $result = $this->model->save($_POST, $id);
-            if ($result) {
-                Session::setMessage('success', 'Success');
+            $errorMsg = $this->validateData($_POST);
+            if ($errorMsg) {
+                Session::setMessage('error', join('<br>', $errorMsg));
             } else {
-                Session::setMessage('error', 'Fail');
+                $data = $this->sanitizeData($_POST);
+                $result = $this->model->save($data, $id);
+                if ($result) {
+                    Session::setMessage('success', 'Edit Successfully');
+                } else {
+                    Session::setMessage('error', 'Edit Fail');
+                }
+                Router::redirect(getAdminUrl('page'));
             }
-            Router::redirect(getAdminUrl('page'));
         } else {
-
             if (isset($this->params[0])) {
                 $id = (int)$this->params[0];
                 $content = $this->model->getBy('id', $id);
@@ -43,16 +48,49 @@ class PageAdminController extends Controller
     public function add()
     {
         if ($_POST) {
-            $result = $this->model->save($_POST);
-            if ($result) {
-                Session::setMessage('success', 'Success');
+            $errorMsg = $this->validateData($_POST);
+            if ($errorMsg) {
+                Session::setMessage('error', join('<br>', $errorMsg));
             } else {
-                Session::setMessage('error', 'Fail');
+                $data = $this->sanitizeData($_POST);
+                $result = $this->model->save($data);
+                if ($result) {
+                    Session::setMessage('success', 'Adding Successfully');
+                } else {
+                    Session::setMessage('error', 'Adding Fail');
+                }
+                Router::redirect(getAdminUrl('page'));
             }
-            Router::redirect(getAdminUrl('page'));
-        } else {
-            View::renderView();
+
         }
+        View::renderView();
+    }
+
+    protected function validateData($data)
+    {
+        $msg = array();
+        if (empty($data['title'])) {
+            $msg[] = 'Missing title';
+        }
+        if (empty($data['alias'])) {
+            $msg[] = 'Missing alias';
+        }
+        if (empty($data['content'])) {
+            $msg[] = 'Missing content';
+        }
+        return $msg;
+    }
+
+    protected function sanitizeData($data)
+    {
+        $escapeData = [
+            'title' => $this->cleanInput($data['title']),
+            'alias' => $this->cleanInput($data['alias']),
+            'description' => $this->cleanInput($data['description']),
+            'content' => $this->cleanInput($data['content']),
+            'is_active' => isset($data['is_active']) ? 1 : 0
+        ];
+        return $escapeData;
     }
 
     public function delete()

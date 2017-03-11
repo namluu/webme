@@ -34,7 +34,7 @@ class Model
      *
      * @param $key
      * @param $value
-     * @return null
+     * @return null|array
      */
     public function getBy($key, $value)
     {
@@ -47,6 +47,17 @@ class Model
         return null;
     }
 
+    public function countBy($key, $value)
+    {
+        $value = $this->db->escape($value);
+        if ($this->db->tableColumnExists($this->table, $key)) {
+            $sql = "SELECT COUNT(*) FROM {$this->table} WHERE {$key} = '{$value}'";
+            $result = $this->db->query($sql);
+            return isset($result[0]) ? $result[0] : 0;
+        }
+        return 0;
+    }
+
     public function delete($id)
     {
         $id = (int)$id;
@@ -54,6 +65,11 @@ class Model
         return $this->db->query($sql);
     }
 
+    /**
+     * @param $data
+     * @param null $id
+     * @return array|bool|mysqli_result
+     */
     public function save($data, $id = null)
     {
         if (!$id) {

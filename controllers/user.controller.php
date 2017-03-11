@@ -31,6 +31,12 @@ class UserController extends Controller
                 $isError = true;
                 $errorMsg[] = 'Name must contain alphabets and space.';
             } else {
+                // check fullname exist or not
+                $count = $this->model->countBy('username', $fullname);
+                if ($count) {
+                    $isError = true;
+                    $errorMsg[] = 'Provided FullName is already in use.';
+                }
                 $dataCache['fullname'] = $fullname;
             }
             // basic email validation
@@ -39,6 +45,11 @@ class UserController extends Controller
                 $errorMsg[] = 'Please enter valid email address.';
             } else {
                 // check email exist or not
+                $count = $this->model->countBy('email', $email);
+                if ($count) {
+                    $isError = true;
+                    $errorMsg[] = 'Provided Email is already in use.';
+                }
                 $dataCache['email'] = $email;
             }
             // password validation
