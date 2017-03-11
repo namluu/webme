@@ -54,7 +54,7 @@ class Model
         return $this->db->query($sql);
     }
 
-    public function save($data, $id)
+    public function save($data, $id = null)
     {
         if (!$id) {
             $fields = '';
@@ -79,5 +79,10 @@ class Model
             $update .= " WHERE id = " . $id;
             return $this->db->query($update);
         }
+    }
+
+    public function escape($str)
+    {
+        return $this->db->escape($str);
     }
 }

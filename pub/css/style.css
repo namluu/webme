@@ -4,3 +4,22 @@
 .contact-form {
     max-width: 500px;
 }
+/* register */
+.signupbox, .loginbox {
+    margin-top: 50px
+}
+.signinlink {
+    float:right; font-size: 85%; position: relative; top:-10px;
+}
+.separate {
+    margin:0 8px;
+}
+.loginbox .panel-body {
+    padding-top:30px
+}
+.loginbox .input-group {
+    margin-bottom: 25px
+}
+.hr {
+    border-top: 1px solid #888; padding-top:15px; font-size:85%;
+}

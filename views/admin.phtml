@@ -26,8 +26,8 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <?php getAdminMenu('page', 'page', 'Page')?>
-                    <?php getAdminMenu('contact', 'contact', 'Contact')?>
+                    <?php getAdminMenu('page', 'Page')?>
+                    <?php getAdminMenu('contact', 'Contact')?>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
                         <ul class="dropdown-menu">
@@ -56,7 +56,7 @@
                             <li><a href="#">Another action</a></li>
                             <li><a href="#">Something else here</a></li>
                             <li role="separator" class="divider"></li>
-                            <?php getAdminMenu('user/logout', 'user', 'Log out')?>
+                            <?php getAdminMenu('user/logout', 'Log out')?>
                         </ul>
                     </li>
                 </ul>
@@ -66,12 +66,6 @@
         <!-- /.container-fluid -->
     </nav>
 </header>
-
-<?php if (Session::hasFlash()) : ?>
-<div class="container container-main">
-    <div class="alert alert-success" role="alert"><?php echo Session::flash() ?></div>
-</div>
-<?php endif; ?>
 
 <?php if ($messages = Session::getMessage()) : ?>
 <div class="container container-main">

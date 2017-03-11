@@ -1,0 +1,40 @@
+<div class="signupbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <div class="panel-title">Sign Up</div>
+            <a class="signinlink" href="<?php echo getUrl('user/login') ?>">Sign In</a>
+        </div>
+        <div class="panel-body" >
+            <form id="signupform" class="form-horizontal" role="form" action="<?php echo getUrl('user/register') ?>" method="post">
+                <div class="form-group">
+                    <label for="email" class="col-md-3 control-label">Email</label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" name="email" id="email"
+                               value="<?php echo isset($data['email']) ? $data['email'] : '' ?>">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="fullname" class="col-md-3 control-label">Full Name</label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" name="fullname" id="fullname"
+                               value="<?php echo isset($data['fullname']) ? $data['fullname'] : '' ?>">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="col-md-3 control-label">Password</label>
+                    <div class="col-md-9">
+                        <input type="password" class="form-control" name="password" id="password">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <!-- Button -->
+                    <div class="col-md-offset-3 col-md-9">
+                        <button id="btn-signup" type="submit" class="btn btn-info" name="btn-register">Sign Up</button>
+                        <span class="separate">or</span>
+                        <button id="btn-fbsignup" type="button" class="btn btn-primary">Sign Up with Facebook</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -38,11 +38,16 @@ class App
         $controllerMethod = strtolower(self::$router->getMethodPrefix().self::$router->getAction());
 
         // call controller method
-        $controllerObject = new $controllerClass;
-        if (method_exists($controllerObject, $controllerMethod)) {
-            $controllerObject->$controllerMethod();
+        if (class_exists($controllerClass)) {
+            $controllerObject = new $controllerClass;
+            if (method_exists($controllerObject, $controllerMethod)) {
+                $controllerObject->$controllerMethod();
+            } else {
+                throw new Exception('Method "'.$controllerClass.'->'.$controllerMethod.'" does not exist');
+            }
         } else {
-            throw new Exception('Method "'.$controllerClass.'->'.$controllerMethod.'" does not exist');
+            self::$router->setController('error');
+            View::renderView('', '', '404');
         }
 
         // the layout render will be move to View and Controller Action

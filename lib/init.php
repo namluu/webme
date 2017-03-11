@@ -16,13 +16,9 @@ function __autoload($class) {
         require_once($controllerAdmin);
     } elseif (file_exists($modelPath)) {
         require_once($modelPath);
-    } else {
-        // throw on development env
-        // redirect to 404 page on product env
-        throw new Exception('Failed to include class: ' . $class);
     }
 }
-
+// translate helpers
 function __($key, $default = '') {
     if (!$default) {
         $default = $key;
@@ -30,24 +26,28 @@ function __($key, $default = '') {
     return Lang::get($key, $default);
 }
 
+// link helpers
 function getUrl($url = '') {
     return Config::get('base_url') . $url;
 }
-
 function getAdminUrl($url = '') {
     return Config::get('admin_url') . $url;
 }
+function getMenu($path, $name, $isAdmin = false) {
+    $active = '';
+    $pathParts = explode('/', $path);
+    if (count($pathParts) >= 2) {
+        // active action level
+        $active = App::getRouter()->getAction() == $pathParts[1] ? ' class="active"':'';
+    } elseif (count($pathParts) == 1) {
+        // active controller level
+        $active = App::getRouter()->getController() == $pathParts[0] ? ' class="active"':'';
+    }
 
-function getMenu($path, $controller, $name) {
-    $active = App::getRouter()->getController() == $controller ? ' class="active"':'';
     echo '<li '.$active.'>';
-    echo '<a href="'.getUrl($path).'"'. $active.'>'. $name.'</a>';
+    echo '<a href="'.($isAdmin ? getAdminUrl($path) : getUrl($path)).'"'. $active.'>'. $name.'</a>';
     echo '</li>';
 }
-
-function getAdminMenu($path, $controller, $name) {
-    $active = App::getRouter()->getController() == $controller ? ' class="active"':'';
-    echo '<li '.$active.'>';
-    echo '<a href="'.getAdminUrl($path).'"'. $active.'>'. $name.'</a>';
-    echo '</li>';
+function getAdminMenu($path, $name) {
+    getMenu($path, $name, true);
 }

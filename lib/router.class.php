@@ -111,6 +111,11 @@ class Router
         return $this->controller;
     }
 
+    public function setController($controller)
+    {
+        return $this->controller = $controller;
+    }
+
     /**
      * @return mixed
      */
@@ -130,6 +135,7 @@ class Router
     public static function redirect($location)
     {
         header('Location: '.$location);
+        die;
     }
 
     /**
