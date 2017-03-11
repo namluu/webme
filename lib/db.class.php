@@ -41,6 +41,24 @@ class Db
         return $data;
     }
 
+    public function count($sql)
+    {
+        if (!$this->connection) {
+            return false;
+        }
+        $result = $this->connection->query($sql);
+
+        if (mysqli_error($this->connection)) {
+            throw new Exception(mysqli_error($this->connection));
+        }
+        if (is_bool($result)) {
+            return $result;
+        }
+
+        $row = $result->fetch_row();
+        return $row[0];
+    }
+
     /**
      * Escapes special characters in a string for use in an SQL
      *

@@ -27,7 +27,7 @@ class UserController extends Controller
             } elseif (strlen($fullname) < 3) {
                 $isError = true;
                 $errorMsg[] = 'Name must have at least 3 characters.';
-            } elseif (!preg_match("/^[a-zA-Z ]+$/",$fullname)) {
+            } elseif (!preg_match("/^[a-zA-Z0-9 ]+$/",$fullname)) {
                 $isError = true;
                 $errorMsg[] = 'Name must contain alphabets and space.';
             } else {

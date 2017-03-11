@@ -52,8 +52,8 @@ class Model
         $value = $this->db->escape($value);
         if ($this->db->tableColumnExists($this->table, $key)) {
             $sql = "SELECT COUNT(*) FROM {$this->table} WHERE {$key} = '{$value}'";
-            $result = $this->db->query($sql);
-            return isset($result[0]) ? $result[0] : 0;
+            $result = $this->db->count($sql);
+            return $result;
         }
         return 0;
     }
@@ -76,6 +76,7 @@ class Model
             $fields = '';
             $values = '';
             foreach ($data as $field => $value) {
+                $value = $this->escape($value);
                 $fields .= "$field,";
                 $values .= (is_numeric($value) && (intval($value) == $value)) ? $value . ',' : "'$value',";
             }
@@ -88,6 +89,7 @@ class Model
         } else {
             $update = "UPDATE {$this->table} SET ";
             foreach ($data as $field => $value) {
+                $value = $this->escape($value);
                 $update .= $field . " = '{$value}',";
             }
             // remove our trailing ,

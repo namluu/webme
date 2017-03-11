@@ -52,7 +52,7 @@ class Controller
     {
         $input = trim($input);
         $input = strip_tags($input);
-        $input = htmlspecialchars($input);
+        //$input = htmlspecialchars($input);
 
         return $input;
     }
