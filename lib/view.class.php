@@ -61,7 +61,7 @@ class View
         if ($layout) {
             $layout = VIEW_PATH.DS.$layout.'.phtml';
         } elseif ($router->isAdmin()) {
-            $layout = VIEW_PATH.DS.'admin.phtml';
+            $layout = VIEW_PATH.DS.'adminv2.phtml';
         } else {
             $layout = VIEW_PATH.DS.$router->getRoute().'.phtml';
         }

@@ -1,22 +1,28 @@
-<p><?php echo __('Manage page') ?></p>
-<table class="table table-striped" style="width: 500px">
-    <tr>
-        <th>Title</th>
-        <th>Description</th>
-        <th>Active</th>
-        <th></th>
-    </tr>
-    <?php foreach ($data as $page): ?>
+<div class="x_title">
+    <h2><?php echo __('Manage page') ?></h2>
+    <div class="clearfix"></div>
+</div>
+
+<div class="x_content">
+    <table class="table table-striped">
         <tr>
-            <td><?php echo $page['title'] ?></td>
-            <td><?php echo $page['description'] ?></td>
-            <td><?php echo $page['is_active'] ?></td>
-            <td>
-                <a href="<?php echo getAdminUrl('page/edit/' . $page['id']) ?>">Edit</a>&nbsp;|&nbsp;
-                <a href="<?php echo getAdminUrl('page/delete/' . $page['id']) ?>"
-                    onclick="return confirmDelete();">Remove</a>
-            </td>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Active</th>
+            <th></th>
         </tr>
-    <?php endforeach; ?>
-</table>
-<p><a href="<?php echo getAdminUrl('page/add') ?>">New page</a></p>
+        <?php foreach ($data as $page): ?>
+            <tr>
+                <td><?php echo $page['title'] ?></td>
+                <td><?php echo $page['description'] ?></td>
+                <td><?php echo $page['is_active'] ?></td>
+                <td>
+                    <a href="<?php echo getAdminUrl('page/edit/' . $page['id']) ?>">Edit</a>&nbsp;|&nbsp;
+                    <a href="<?php echo getAdminUrl('page/delete/' . $page['id']) ?>"
+                       onclick="return confirmDelete();">Remove</a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+    <p><a href="<?php echo getAdminUrl('page/add') ?>">New page</a></p>
+</div>

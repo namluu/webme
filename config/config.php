@@ -10,7 +10,7 @@ Config::set('routes', array(
 Config::set('languages', array('en', 'vi'));
 Config::set('default_route', 'default');
 Config::set('default_language', 'en');
-Config::set('default_controller', 'page');
+Config::set('default_controller', 'home');
 Config::set('default_action', 'index');
 
 Config::set('base_url', 'http://webme.loc/');
