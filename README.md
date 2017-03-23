@@ -4,6 +4,7 @@ _A beautiful PHP Framework_
 - Easy to reuse code - libraries
 - Isolating the Layout
 - Front Controller
+- Admin template [Gentelella](https://github.com/puikinsh/gentelella)
 
 ###Controller
 ```php

@@ -1,0 +1,28 @@
+<div class="x_title">
+    <h2><?php echo __('Manage admin') ?></h2>
+    <div class="clearfix"></div>
+</div>
+
+<div class="x_content">
+    <table class="table table-striped">
+        <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Active</th>
+            <th></th>
+        </tr>
+        <?php foreach ($data as $user): ?>
+            <tr>
+                <td><?php echo $user['username'] ?></td>
+                <td><?php echo $user['email'] ?></td>
+                <td><?php echo $user['is_active'] ?></td>
+                <td>
+                    <a href="<?php echo getAdminUrl('user/edit/' . $user['id']) ?>">Edit</a>&nbsp;|&nbsp;
+                    <a href="<?php echo getAdminUrl('user/delete/' . $user['id']) ?>"
+                       onclick="return confirmDelete();">Remove</a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+    <p><a href="<?php echo getAdminUrl('page/add') ?>">New user</a></p>
+</div>

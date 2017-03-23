@@ -2,10 +2,13 @@
 
 class UserAdminController extends Controller
 {
+    protected $adminModel;
+
     public function __construct(array $data = array())
     {
         parent::__construct($data);
-        $this->model = new UserAdminModel();
+        $this->model = new UserModel();
+        $this->adminModel = new UserAdminModel();
     }
 
     public function login()
@@ -31,5 +34,17 @@ class UserAdminController extends Controller
     {
         Session::destroy();
         Router::redirect(getAdminUrl());
+    }
+
+    public function index()
+    {
+        $data = $this->model->getList();
+        View::renderView($data);
+    }
+
+    public function admin()
+    {
+        $data = $this->adminModel->getList();
+        View::renderView($data);
     }
 }
