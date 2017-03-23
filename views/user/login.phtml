@@ -6,7 +6,7 @@
         </div>
         <div class="panel-body">
             <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
-            <form action="<?php echo getUrl('user/login') ?>" class="form-horizontal" role="form">
+            <form action="<?php echo getUrl('user/login') ?>" class="form-horizontal" role="form" method="post">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                     <input id="login-username" type="text" class="form-control" name="username" value="" placeholder="email">
@@ -17,7 +17,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-12 controls">
-                        <a id="btn-login" href="#" class="btn btn-success">Login</a>
+                        <button id="btn-login" type="submit" class="btn btn-success">Login</button>
                     </div>
                 </div>
                 <div class="form-group">
