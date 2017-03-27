@@ -60,9 +60,11 @@ class UserController extends Controller
                 $isError = true;
                 $errorMsg[] = 'Password must have at least 6 characters.';
             }
-            $hash = md5(Config::get('salt').$password);
+
+            // captcha validation
 
             if( !$isError ) {
+                $hash = md5(Config::get('salt').$password);
                 $data = array(
                     'username' => $fullname,
                     'password' => $hash,
@@ -81,17 +83,21 @@ class UserController extends Controller
     public function login()
     {
         if ($_POST && isset($_POST['username']) && isset($_POST['password'])) {
-            $username = $this->model->escape($_POST['username']);
+            $email = $this->model->escape($_POST['username']);
             $password = $this->model->escape($_POST['password']);
 
-            $user = $this->model->getBy('email', $username);
-            $hash = md5(Config::get('salt').$password);
-            if ($user && $user['is_active'] && $hash === $user['password']) {
-                Session::set('username', $user['username']);
-                Session::set('role', 'user');
-                Router::redirect(getUrl('user/account'));
+            if ( !validateEmail($email) ) {
+                Session::setMessage('error', 'Please enter valid email address.');
             } else {
-                Session::setMessage('error', 'Wrong account');
+                $user = $this->model->getBy('email', $email);
+                $hash = md5(Config::get('salt') . $password);
+                if ($user && $user['is_active'] && $hash === $user['password']) {
+                    Session::set('username', $user['username']);
+                    Session::set('role', 'user');
+                    Router::redirect(getUrl('user/account'));
+                } else {
+                    Session::setMessage('error', 'Wrong account');
+                }
             }
         }
         View::renderView();
@@ -100,6 +106,73 @@ class UserController extends Controller
     public function logout()
     {
         Session::destroy();
+        Router::redirect(getUrl());
+    }
+
+    public function forgotPassword()
+    {
+        if ($_POST && isset($_POST['email'])) {
+            $email = $this->model->escape($_POST['email']);
+            if ( !validateEmail($email) ) {
+                Session::setMessage('error', 'Please enter valid email address.');
+            } else {
+                $user = $this->model->getBy('email', $email);
+                if ($user && $user['is_active']) {
+                    $token = randomStr(30);
+                    $data = array(
+                        'reset_token' => $token
+                    );
+                    $this->model->save($data, $user['id']);
+                    Mailout::send($email, $token);
+                    Session::setMessage('success', 'A reset password link sent to email "'.$email.'" successfully');
+                } else {
+                    Session::setMessage('error', 'Email "' . $email . '" not exist');
+                }
+            }
+        }
+        View::renderView();
+    }
+
+    public function resetPassword()
+    {
+        if (isset($this->params[0])) {
+            $token = $this->params[0];
+            $user = $this->model->getBy('reset_token', $token);
+            if ($user && $user['is_active']) {
+                if ($_POST && isset($_POST['password'])) {
+                    $hash = md5(Config::get('salt') . $_POST['password']);
+                    $data = array(
+                        'password' => $hash,
+                        'reset_token' => ''
+                    );
+                    $this->model->save($data, $user['id']);
+                    Session::setMessage('success', 'Reset password successfully');
+                    Router::redirect(getUrl('user/login'));
+                }
+                View::renderView();
+            }
+        }
+        Session::setMessage('error', 'Token is invalid');
+        Router::redirect(getUrl('user/forgotpassword'));
+    }
+
+    public function changePassword()
+    {
+        $username = Session::get('username');
+        $user = $this->model->getBy('username', $username);
+        if ($user && $user['is_active']) {
+            if ($_POST && isset($_POST['password'])) {
+                $hash = md5(Config::get('salt') . $_POST['password']);
+                $data = array(
+                    'password' => $hash
+                );
+                $this->model->save($data, $user['id']);
+                Session::setMessage('success', 'Change password successfully');
+                Router::redirect(getUrl('user/account'));
+            }
+            View::renderView(null, null, 'resetpassword');
+        }
+        Session::setMessage('error', 'Something was wrong');
         Router::redirect(getUrl());
     }
 

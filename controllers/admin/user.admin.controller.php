@@ -17,7 +17,7 @@ class UserAdminController extends Controller
             $username = $this->model->escape($_POST['username']);
             $password = $this->model->escape($_POST['password']);
 
-            $user = $this->model->getBy('username', $username);
+            $user = $this->adminModel->getBy('username', $username);
             $hash = md5(Config::get('salt').$password);
             if ($user && $user['is_active'] && $hash === $user['password']) {
                 Session::set('username', $user['username']);

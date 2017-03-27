@@ -54,7 +54,7 @@
                                     Hello: <?php echo $username ?> <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#">Change password</a></li>
+                                    <?php getMenu('user/changepassword', 'Change password')?>
                                     <li><a href="#">Another action</a></li>
                                     <li><a href="#">Something else here</a></li>
                                     <li role="separator" class="divider"></li>
@@ -64,6 +64,7 @@
                         <?php else: ?>
                             <?php getMenu('user/register', 'Register')?>
                             <?php getMenu('user/login', 'Login')?>
+                            <li><p class="navbar-text"><span class="glyphicon glyphicon-lock"></span></p></li>
                         <?php endif; ?>
                     </ul>
                 </div>

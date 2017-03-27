@@ -51,3 +51,21 @@ function getMenu($path, $name, $isAdmin = false) {
 function getAdminMenu($path, $name) {
     getMenu($path, $name, true);
 }
+
+function randomStr($length, $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
+{
+    $str = '';
+    $max = mb_strlen($keyspace, '8bit') - 1;
+    for ($i = 0; $i < $length; ++$i) {
+        $str .= $keyspace[random_int(0, $max)];
+    }
+    return $str;
+}
+function validateEmail($string)
+{
+    $domain = substr(strrchr($string, "@"), 1);
+    if ( $domain != 'localhost' && !filter_var($string,FILTER_VALIDATE_EMAIL) ) {
+        return false;
+    }
+    return true;
+}

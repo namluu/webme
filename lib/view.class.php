@@ -72,5 +72,6 @@ class View
         include ($layout);
         $page = ob_get_clean();
         echo $page;
+        die;
     }
 }
