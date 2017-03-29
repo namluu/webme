@@ -103,4 +103,20 @@ class Model
     {
         return $this->db->escape($str);
     }
+
+    public function searchBy($wheres, $cond = 'or')
+    {
+        $sql = "SELECT * FROM {$this->table} WHERE ";
+        $i = 0;
+        foreach ($wheres as $key => $value) {
+            $value = $this->db->escape($value);
+            if ($i == 0) {
+                $sql .= "{$key} LIKE '%{$value}%' ";
+            } else {
+                $sql .= "{$cond} {$key} LIKE '%{$value}%' ";
+            }
+            $i++;
+        }
+        return $this->db->query($sql);
+    }
 }

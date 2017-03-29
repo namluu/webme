@@ -47,7 +47,8 @@ class App
             }
         } else {
             self::$router->setController('error');
-            View::renderView('', '', '404');
+            View::setPath('404');
+            View::renderView();
         }
 
         // the layout render will be move to View and Controller Action

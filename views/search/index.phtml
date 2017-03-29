@@ -1,0 +1,6 @@
+<p>List result</p>
+<ul>
+    <?php foreach ($data as $user): ?>
+        <?php getMenu('user/view/'. $user['username'], $user['username'])?>
+    <?php endforeach; ?>
+</ul>

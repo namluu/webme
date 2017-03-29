@@ -27,9 +27,9 @@ class UserController extends Controller
             } elseif (strlen($fullname) < 3) {
                 $isError = true;
                 $errorMsg[] = 'Name must have at least 3 characters.';
-            } elseif (!preg_match("/^[a-zA-Z0-9 ]+$/",$fullname)) {
+            } elseif (!preg_match("/^[a-zA-Z0-9]+$/",$fullname)) {
                 $isError = true;
-                $errorMsg[] = 'Name must contain alphabets and space.';
+                $errorMsg[] = 'Name must contain alphabets and numbers.';
             } else {
                 // check fullname exist or not
                 $count = $this->model->countBy('username', $fullname);
@@ -170,7 +170,8 @@ class UserController extends Controller
                 Session::setMessage('success', 'Change password successfully');
                 Router::redirect(getUrl('user/account'));
             }
-            View::renderView(null, null, 'resetpassword');
+            View::setPath('resetpassword');
+            View::renderView();
         }
         Session::setMessage('error', 'Something was wrong');
         Router::redirect(getUrl());

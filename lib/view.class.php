@@ -1,44 +1,21 @@
 <?php
 class View
 {
-    protected $data;
+    static $path;
 
-    protected $path;
+    static $layout;
 
-    public function __construct($data = array(), $path = null)
+    public static function setPath($path)
     {
-        if (!$path) {
-            $path = self::getDefaultViewPath();
-        }
-        if (!file_exists($path)) {
-            throw new Exception('Template file is not found in path: '.$path);
-        }
-        $this->path = $path;
-        $this->data = $data;
+        self::$path = $path;
     }
 
-    protected static function getDefaultViewPath()
+    public static function setLayout($layout)
     {
-        $router = App::getRouter();
-        if (!$router) {
-            return false;
-        }
-        $controllerDir = str_replace('Controller', '', $router->getController());
-        $templateName = $router->getMethodPrefix().$router->getAction().'.phtml';
-
-        return VIEW_PATH.DS.$controllerDir.DS.$templateName;
+        self::$layout = $layout;
     }
 
-    public function render()
-    {
-        $data = $this->data;
-        ob_start();
-        include ($this->path);
-        $content = ob_get_clean();
-        return $content;
-    }
-
-    public static function renderView($data = '', $layout = '', $path = '')
+    public static function renderView($data = '')
     {
         $router = App::getRouter();
         if (!$router) {
@@ -52,14 +29,14 @@ class View
         }
         $templateName = $router->getMethodPrefix().$router->getAction().'.phtml';
 
-        if ($path) {
+        if (self::$path) {
             $path = VIEW_PATH.DS.$controllerDir.DS.$path.'.phtml';
         } else {
             $path = VIEW_PATH.DS.$controllerDir.DS.$templateName;
         }
 
-        if ($layout) {
-            $layout = VIEW_PATH.DS.$layout.'.phtml';
+        if (self::$layout) {
+            $layout = VIEW_PATH.DS.self::$layout.'.phtml';
         } elseif ($router->isAdmin()) {
             $layout = VIEW_PATH.DS.'adminv2.phtml';
         } else {

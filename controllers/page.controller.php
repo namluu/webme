@@ -16,7 +16,7 @@ class PageController extends Controller
 
     public function view()
     {
-        $params = App::getRouter()->getParams();
+        $params = $this->getParams();
 
         if (isset($params[0])) {
             $alias = strtolower($params[0]);

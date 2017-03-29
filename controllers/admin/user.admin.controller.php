@@ -27,7 +27,8 @@ class UserAdminController extends Controller
                 Session::setMessage('error', 'Wrong account');
             }
         }
-        View::renderView('', 'login');
+        View::setLayout('login');
+        View::renderView();
     }
 
     public function logout()
