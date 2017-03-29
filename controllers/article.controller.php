@@ -1,11 +1,11 @@
 <?php
 
-class PageController extends Controller
+class ArticleController extends Controller
 {
     public function __construct(array $data = array())
     {
         parent::__construct($data);
-        $this->model = new PageModel();
+        $this->model = new ArticleModel();
     }
 
     public function index()

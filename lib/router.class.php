@@ -41,6 +41,7 @@ class Router
                 $this->route = strtolower(current($pathParts));
                 if ($this->route == Config::get('route_admin')) {
                     $this->isAdmin = true;
+                    $this->controller = Config::get('default_admin_controller');
                     $this->controller .= 'Admin';
                 }
                 //$this->methodPrefix = isset($routes[$this->route]) ? $routes[$this->route] : '';

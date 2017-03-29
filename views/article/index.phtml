@@ -1,0 +1,16 @@
+<p><?php echo __('greeting') ?></p>
+<p>Sort <a href="">Newest</a> | <a href="">Oldest</a></p>
+
+<?php foreach ($data as $article): ?>
+<div class="media">
+    <div class="media-left">
+        <a href="#">
+            <img class="media-object img-circle" src="<?php echo getUrl('images/avatar.jpg') ?>" alt="avatar">
+        </a>
+    </div>
+    <div class="media-body">
+        <h4 class="media-heading"><a href="<?php echo getUrl('article/view/'.$article['alias']) ?>"><?php echo $article['title'] ?></a></h4>
+        <?php echo $article['description'] ?>
+    </div>
+</div>
+<?php endforeach; ?>

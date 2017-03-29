@@ -1,10 +1,10 @@
 <?php
-class PageAdminController extends Controller
+class ArticleAdminController extends Controller
 {
     public function __construct(array $data = array())
     {
         parent::__construct($data);
-        $this->model = new PageModel();
+        $this->model = new ArticleModel();
     }
 
     public function index()
@@ -28,7 +28,7 @@ class PageAdminController extends Controller
                 } else {
                     Session::setMessage('error', 'Edit Fail');
                 }
-                Router::redirect(getAdminUrl('page'));
+                Router::redirect(getAdminUrl('article'));
             }
         } else {
             if (isset($this->params[0])) {
@@ -38,8 +38,8 @@ class PageAdminController extends Controller
                     View::renderView($content);
                 }
                 else {
-                    Session::setMessage('error', 'Wrong page id');
-                    Router::redirect(getAdminUrl('page'));
+                    Session::setMessage('error', 'Wrong article id');
+                    Router::redirect(getAdminUrl('article'));
                 }
             }
         }
@@ -59,7 +59,7 @@ class PageAdminController extends Controller
                 } else {
                     Session::setMessage('error', 'Adding Fail');
                 }
-                Router::redirect(getAdminUrl('page'));
+                Router::redirect(getAdminUrl('article'));
             }
 
         }
@@ -103,6 +103,6 @@ class PageAdminController extends Controller
                 Session::setMessage('error', 'Fail');
             }
         }
-        Router::redirect(getAdminUrl('page'));
+        Router::redirect(getAdminUrl('article'));
     }
 }
