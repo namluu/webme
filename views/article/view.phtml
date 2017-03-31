@@ -1,6 +1,34 @@
 <?php if (!$data['content']): ?>
-<?php echo __('content empty') ?>
+    <?php echo __('content empty') ?>
 <?php else: ?>
-<h1><?php echo $data['title'] ?></h1>
-<p><?php echo $data['content'] ?></p>
+    <h1><?php echo $data['title'] ?></h1>
+    <p><?php echo $data['content'] ?></p>
+    <hr>
+    <ul>
+        <?php foreach ($data['comments'] as $comment): ?>
+            <li><?php echo $comment['content'] ?></li>
+        <?php endforeach; ?>
+    </ul>
+    <hr>
+
+    <div>
+        <h2>Comment</h2>
+        <form action="<?php echo getUrl('comment/add') ?>" class="form-horizontal" method="post">
+            <div class="form-group">
+                <div class="col-sm-6"><input type="text" class="form-control" placeholder="Your name"></div>
+                <div class="col-sm-6"><input type="email" class="form-control" placeholder="Your email"></div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <textarea name="content" class="form-control" rows="5" placeholder="Your comment"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </div>
+            </div>
+            <input type="hidden" name="article_id" value="<?php echo $data['id'] ?>">
+        </form>
+    </div>
 <?php endif; ?>

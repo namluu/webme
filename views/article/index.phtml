@@ -1,5 +1,8 @@
 <p><?php echo __('greeting') ?></p>
-<p>Sort <a href="">Newest</a> | <a href="">Oldest</a></p>
+<p>
+    Sort <a href="">Newest</a> | <a href="">Oldest</a> |
+    <a href="<?php echo getUrl('article/add') ?>" class="btn btn-default">Create new article</a>
+</p>
 
 <?php foreach ($data as $article): ?>
 <div class="media">

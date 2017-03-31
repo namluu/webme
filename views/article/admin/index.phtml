@@ -6,9 +6,10 @@
 <div class="x_content">
     <table class="table table-striped">
         <tr>
-            <th>Title</th>
+            <th width="30%">Title</th>
             <th>Description</th>
             <th>Active</th>
+            <th>Comment</th>
             <th></th>
         </tr>
         <?php foreach ($data as $page): ?>
@@ -16,6 +17,7 @@
                 <td><?php echo $page['title'] ?></td>
                 <td><?php echo $page['description'] ?></td>
                 <td><?php echo $page['is_active'] ?></td>
+                <td><a href="<?php echo getAdminUrl('comment/view/' . $page['id']) ?>"><?php echo isset($page['comment_number']) ? $page['comment_number'] : '' ?></a></td>
                 <td>
                     <a href="<?php echo getAdminUrl('article/edit/' . $page['id']) ?>">Edit</a>&nbsp;|&nbsp;
                     <a href="<?php echo getAdminUrl('article/delete/' . $page['id']) ?>"
